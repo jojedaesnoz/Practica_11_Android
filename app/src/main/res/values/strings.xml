@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Practica_1.1</string>
+    <string name="label_nuevo_articulo">Nuevo Artículo</string>
+    <string name="menu_modificar">Modificar</string>
+    <string name="menu_eliminar">Eliminar</string>
+    <string name="label_titulo">Título</string>
+    <string name="label_fecha">Fecha</string>
+    <string name="label_autor">Autor</string>
+    <string name="label_cancelar">Cancelar</string>
+    <string name="label_guardar">Guardar</string>
+    <string name="label_contenido">Contenido</string>
+    <string name="label_acerca_de">Acerca de</string>
+</resources>
