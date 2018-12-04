@@ -6,6 +6,8 @@ public class Contract {
 	public static final String TABLA_ARTICULOS = "articulos";
 	public static final String TITULO = "titulo";
 	public static final String IMAGEN = "imagen";
+	public static final String CONTENIDO = "contenido";
 	public static final String FECHA = "fecha";
 	public static final String AUTOR = "autor";
+	public static final String FAVORITO = "favorito";
 }

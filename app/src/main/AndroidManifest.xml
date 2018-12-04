@@ -19,9 +19,9 @@
         </activity>
         <activity android:name=".activities.ArticuloExpandido">
         </activity>
-        <activity android:name=".activities.NuevoArticulo">
+        <activity android:name=".activities.Formulario">
         </activity>
-        <activity android:name=".activities.Perfil">
+        <activity android:name=".activities.Favoritos">
         </activity>
     </application>
 

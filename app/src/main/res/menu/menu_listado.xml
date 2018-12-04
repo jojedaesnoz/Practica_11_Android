@@ -8,6 +8,12 @@
         android:title="@string/label_nuevo_articulo">
     </item>
     <item
+        android:id="@+id/menu_lista_favoritos"
+        android:icon="@android:drawable/star_on"
+        app:showAsAction="ifRoom"
+        android:title="@string/menu_mostrar_favoritos">
+    </item>
+    <item
         android:id="@+id/menu_acerca_de"
         android:icon="@android:drawable/ic_menu_help"
         app:showAsAction="ifRoom"

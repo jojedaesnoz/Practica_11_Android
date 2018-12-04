@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Asignment_1.1</string>
+    <string name="label_nuevo_articulo">New Article</string>
+    <string name="menu_modificar">Modify</string>
+    <string name="menu_eliminar">Remove</string>
+    <string name="label_titulo">Title</string>
+    <string name="label_fecha">Date</string>
+    <string name="label_autor">Author</string>
+    <string name="label_cancelar">Cancel</string>
+    <string name="label_guardar">Save</string>
+    <string name="label_contenido">Content</string>
+    <string name="label_acerca_de">About</string>
+    <string name="menu_favorito">Save as favorite</string>
+    <string name="menu_mostrar_favoritos">Show Favorites</string>
+</resources>

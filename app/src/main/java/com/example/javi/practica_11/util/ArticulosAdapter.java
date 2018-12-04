@@ -1,12 +1,16 @@
 package com.example.javi.practica_11.util;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,29 +35,28 @@ public class ArticulosAdapter extends BaseAdapter {
 	@Override
 	public View getView(int i, View view, ViewGroup viewGroup) {
 
-		NoticiasViewHolder viewHolder = null;
+		NoticiasViewHolder holder = null;
 
 		if (view == null) {
 			view = LayoutInflater.from(context).inflate(layout, null);
 
-			viewHolder = new NoticiasViewHolder();
+			holder = new NoticiasViewHolder();
 			// TODO: probar con view, si no
-			viewHolder.ivImagen = view.findViewById(R.id.ivImagen);
-			viewHolder.tvTitulo = view.findViewById(R.id.tvTitulo);
-			viewHolder.tvFecha = view.findViewById(R.id.tvFecha);
-			viewHolder.tvAutor = view.findViewById(R.id.tvAutor);
+			holder.ivImagen = view.findViewById(R.id.ivImagen);
+			holder.tvTitulo = view.findViewById(R.id.tvTitulo);
+			holder.tvFecha = view.findViewById(R.id.tvFecha);
+			holder.tvAutor = view.findViewById(R.id.tvAutor);
 
-			view.setTag(viewHolder);
+			view.setTag(holder);
 		} else {
-			viewHolder = (NoticiasViewHolder) view.getTag();
+			holder = (NoticiasViewHolder) view.getTag();
 		}
 
 		Articulo articulo = articulos.get(i);
-		viewHolder.tvTitulo.setText(articulo.getTitulo());
-		viewHolder.ivImagen.setImageBitmap(articulo.getImagen());
-		viewHolder.tvFecha.setText(Util.formatearFecha(articulo.getFecha()));
-		viewHolder.tvAutor.setText(articulo.getAutor());
-
+		holder.tvTitulo.setText(articulo.getTitulo());
+		holder.ivImagen.setImageBitmap(articulo.getImagen());
+		holder.tvFecha.setText(Util.formatearFecha(articulo.getFecha()));
+		holder.tvAutor.setText(articulo.getAutor());
 		return view;
 	}
 

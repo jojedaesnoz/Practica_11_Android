@@ -12,6 +12,11 @@ public class Articulo implements Serializable{
 	private String contenido;
 	private Date fecha;
 	private String autor;
+	private boolean favorito;
+
+	{
+		favorito = false;
+	}
 
 	public Articulo(String titulo, Bitmap imagen, String contenido, Date fecha, String autor) {
 		this.titulo = titulo;
@@ -70,5 +75,13 @@ public class Articulo implements Serializable{
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public boolean isFavorito() {
+		return favorito;
+	}
+
+	public void setFavorito(boolean favorito) {
+		this.favorito = favorito;
 	}
 }

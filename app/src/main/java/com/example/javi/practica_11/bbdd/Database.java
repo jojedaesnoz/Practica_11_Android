@@ -33,7 +33,8 @@ public class Database extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase sqLiteDatabase) {
 		sqLiteDatabase.execSQL("CREATE TABLE " + TABLA_ARTICULOS + "("
 				+ _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + TITULO + " TEXT, "
-				+ IMAGEN + " BLOB, " + FECHA + " TEXT, " + AUTOR +  " TEXT)");
+				+ IMAGEN + " BLOB, " + CONTENIDO + " TEXT, " + FECHA + " TEXT, "
+				+ AUTOR + " TEXT, " + FAVORITO + " BOOLEAN)");
 	}
 
 	@Override
@@ -48,8 +49,10 @@ public class Database extends SQLiteOpenHelper {
 		ContentValues values = new ContentValues();
 		values.put(TITULO, articulo.getTitulo());
 		values.put(IMAGEN, Util.getBytes(articulo.getImagen()));
+		values.put(CONTENIDO, articulo.getContenido());
 		values.put(FECHA, Util.formatearFecha(articulo.getFecha()));
 		values.put(AUTOR, articulo.getAutor());
+		values.put(FAVORITO, articulo.isFavorito()? 1 : 0);
 
 		db.insertOrThrow(TABLA_ARTICULOS, null, values);
 		db.close();
@@ -69,8 +72,10 @@ public class Database extends SQLiteOpenHelper {
 		ContentValues values = new ContentValues();
 		values.put(TITULO, articulo.getTitulo());
 		values.put(IMAGEN, Util.getBytes(articulo.getImagen()));
+		values.put(CONTENIDO, articulo.getContenido());
 		values.put(FECHA, Util.formatearFecha(articulo.getFecha()));
 		values.put(AUTOR, articulo.getAutor());
+		values.put(FAVORITO, articulo.isFavorito() ? 1 : 0);
 
 		String[] argumentos = new String[]{String.valueOf(articulo.getId())};
 		db.update(TABLA_ARTICULOS, values, _ID + " = ?", argumentos);
@@ -78,7 +83,7 @@ public class Database extends SQLiteOpenHelper {
 	}
 
 	public ArrayList<Articulo> getArticulos() {
-		final String[] SELECT = {_ID, TITULO, IMAGEN, FECHA, AUTOR};
+		final String[] SELECT = {_ID, TITULO, IMAGEN, CONTENIDO, FECHA, AUTOR, FAVORITO};
 		SQLiteDatabase db = getReadableDatabase();
 		Cursor cursor = db.query(TABLA_ARTICULOS, SELECT, null, null, null, null,
 				null);
@@ -90,12 +95,14 @@ public class Database extends SQLiteOpenHelper {
 			articulo.setId(cursor.getLong(0));
 			articulo.setTitulo(cursor.getString(1));
 			articulo.setImagen(Util.getBitmap(cursor.getBlob(2)));
+			articulo.setContenido(cursor.getString(3));
 			try {
-				articulo.setFecha(Util.parsearFecha(cursor.getString(3)));
+				articulo.setFecha(Util.parsearFecha(cursor.getString(4)));
 			} catch (ParseException pe) {
 				articulo.setFecha(new Date(System.currentTimeMillis()));
 			}
-			articulo.setAutor(cursor.getString(4));
+			articulo.setAutor(cursor.getString(5));
+			articulo.setFavorito(cursor.getInt(6) == 1);
 
 			listaArticulos.add(articulo);
 		}

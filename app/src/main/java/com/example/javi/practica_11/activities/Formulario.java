@@ -26,10 +26,11 @@ import java.util.Date;
 
 import static com.example.javi.practica_11.util.Constantes.EXTRA_ACCION;
 import static com.example.javi.practica_11.util.Constantes.EXTRA_ARTICULO;
+import static com.example.javi.practica_11.util.Constantes.EXTRA_IMAGEN;
 import static com.example.javi.practica_11.util.Constantes.MODIFICAR;
 import static com.example.javi.practica_11.util.Constantes.NUEVO;
 
-public class NuevoArticulo extends AppCompatActivity implements View.OnClickListener{
+public class Formulario extends AppCompatActivity implements View.OnClickListener{
 
 	private static final int CARGA_IMAGEN = 1;
 	private EditText etTitulo, etFecha, etAutor, etContenido;
@@ -40,14 +41,16 @@ public class NuevoArticulo extends AppCompatActivity implements View.OnClickList
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_nuevo_articulo);
+		setContentView(R.layout.activity_formulario);
 
 		inicializarViews();
-		String accion = getIntent().getStringExtra(EXTRA_ACCION);
+		Intent intent = getIntent();
+		String accion = intent.getStringExtra(EXTRA_ACCION);
 		if (accion.equals(MODIFICAR)) {
-			Articulo articulo = (Articulo) getIntent().getSerializableExtra(EXTRA_ARTICULO);
+			Articulo articulo = (Articulo) intent.getSerializableExtra(EXTRA_ARTICULO);
+			byte[] imagen = intent.getByteArrayExtra(EXTRA_IMAGEN);
 			etTitulo.setText(articulo.getTitulo());
-			ibImagen.setImageBitmap(articulo.getImagen());
+			ibImagen.setImageBitmap(Util.getBitmap(imagen));
 			etFecha.setText(Util.formatearFecha(articulo.getFecha()));
 			etAutor.setText(articulo.getAutor());
 			etContenido.setText(articulo.getContenido());
@@ -113,10 +116,12 @@ public class NuevoArticulo extends AppCompatActivity implements View.OnClickList
 				// Guardar en la base de datos
 				Database db = new Database(this);
 				String accion = getIntent().getStringExtra(EXTRA_ACCION);
-				if (accion.equals(NUEVO))
+				if (accion.equals(NUEVO)) {
 					db.nuevoArticulo(articulo);
-				else if (accion.equals(MODIFICAR))
+				} else if (accion.equals(MODIFICAR)) {
+					articulo.setId(((Articulo) getIntent().getSerializableExtra(EXTRA_ARTICULO)).getId());
 					db.modificarArticulo(articulo);
+				}
 
 				// Cerrar la actividad
 				finish();

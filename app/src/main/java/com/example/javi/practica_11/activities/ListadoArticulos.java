@@ -1,6 +1,5 @@
 package com.example.javi.practica_11.activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -65,10 +64,25 @@ public class ListadoArticulos extends AppCompatActivity implements AdapterView.O
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent intent;
 		switch(item.getItemId()) {
 			case R.id.menu_nuevo_articulo:
-				Intent intent = new Intent(this, NuevoArticulo.class);
+				intent = new Intent(this, Formulario.class);
 				intent.putExtra(EXTRA_ACCION, NUEVO);
+				startActivity(intent);
+				return true;
+			case R.id.menu_lista_favoritos:
+				intent = new Intent(this, Favoritos.class);
+				ArrayList<Articulo> favoritos = new ArrayList<>();
+				ArrayList<byte[]> favoritosImagenes = new ArrayList<>();
+				for (Articulo articulo: articulos) {
+					if (articulo.isFavorito()) {
+						favoritos.add(articulo);
+						favoritosImagenes.add(Util.getBytes(articulo.getImagen()));
+					}
+				}
+				intent.putExtra(FAVORITOS, favoritos);
+				intent.putExtra(FAVORITOS_IMAGENES, favoritosImagenes);
 				startActivity(intent);
 				return true;
 			case R.id.menu_acerca_de:
@@ -84,7 +98,12 @@ public class ListadoArticulos extends AppCompatActivity implements AdapterView.O
 	@Override
 	protected void onResume() {
 		super.onResume();
-		articulos = db.getArticulos();
+		refrescarListView();
+	}
+
+	private void refrescarListView() {
+		articulos.clear();
+		articulos.addAll(db.getArticulos());
 		adapter.notifyDataSetChanged();
 	}
 
@@ -98,16 +117,21 @@ public class ListadoArticulos extends AppCompatActivity implements AdapterView.O
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 		Database db = new Database(this);
+		Articulo seleccionado = articulos.get(info.position);
 		switch(item.getItemId()) {
+			case R.id.menu_favorito:
+				seleccionado.setFavorito(true);
+				db.modificarArticulo(seleccionado);
+				return true;
 			case R.id.menu_eliminar:
-				db.eliminarArticulo(articulos.get(info.position));
-				articulos = db.getArticulos();
-				adapter.notifyDataSetChanged();
+				db.eliminarArticulo(seleccionado);
+				refrescarListView();
 				return true;
 			case R.id.menu_modificar:
-				Intent intent = new Intent(this, NuevoArticulo.class);
+				Intent intent = new Intent(this, Formulario.class);
 				intent.putExtra(EXTRA_ACCION, MODIFICAR);
-				intent.putExtra(EXTRA_ARTICULO, articulos.get(info.position));
+				intent.putExtra(EXTRA_ARTICULO, seleccionado);
+				intent.putExtra(EXTRA_IMAGEN, Util.getBytes(seleccionado.getImagen()));
 				startActivity(intent);
 				return true;
 			default:

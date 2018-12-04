@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.NuevoArticulo">
+    android:orientation="vertical"
+    tools:context=".activities.Formulario">
 
     <EditText
         android:id="@+id/etTitulo"
-        android:hint="@string/label_titulo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:hint="@string/label_titulo"/>
 
     <ImageButton
         android:id="@+id/ibImagen"
@@ -21,19 +21,21 @@
 
     <EditText
         android:id="@+id/etFecha"
-        android:hint="@string/label_fecha"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:hint="@string/label_fecha"/>
+
     <EditText
         android:id="@+id/etAutor"
-        android:hint="@string/label_autor"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:hint="@string/label_autor"/>
+
     <EditText
         android:id="@+id/etContenido"
-        android:hint="@string/label_contenido"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:hint="@string/label_contenido"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,14 +44,15 @@
 
         <Button
             android:id="@+id/btCancelar"
-            android:text="@string/label_cancelar"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/label_cancelar"/>
+
         <Button
             android:id="@+id/btGuardar"
-            android:text="@string/label_guardar"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/label_guardar"/>
 
     </LinearLayout>
 
